@@ -1,0 +1,506 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events &mdash; Smart LT</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+  <style>
+    /* Two-column layout for Event Timeline and Sticky Sidebar */
+    .events-timeline-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .events-timeline-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .sticky-sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + 24px);
+    }
+    .event-item {
+      transition: background var(--transition-fast);
+      border-radius: var(--radius-sm);
+      padding: 14px 12px;
+    }
+    .event-item:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .sidebar-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-stat-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">SL</div>SMART LT</a><ul class="nav__links"><li><a href="index.html">Home</a></li><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Monitoring</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="events.html" class="active">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a><button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button></div></nav>
+  <div class="mobile-menu"><button class="nav__close" aria-label="Close">&times;</button><a href="index.html">Home</a><a href="technology.html">Technology</a><a href="monitoring.html">Monitoring</a><a href="analytics.html">Analytics</a><a href="events.html" class="active">Events</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a></div>
+
+  <!-- Hero Section -->
+  <section class="hero" data-animate="fade-up">
+    <div class="hero__bg"></div>
+    <div class="container">
+      <div class="hero__content hero__content--center">
+        <div class="hero__label">EVENT LOG &amp; HISTORY</div>
+        <h1 class="display hero__title">Complete System Event Timeline.</h1>
+        <p class="hero__desc">Every detection, isolation, recovery, and system event &mdash; timestamped, classified, and fully searchable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Statistics Section -->
+  <section class="section" style="padding-top: 0;" data-animate="fade-up">
+    <div class="container">
+      <div class="dash-grid">
+        <!-- Total Events (30d) -->
+        <div class="card card--data" data-animate="fade-up" data-delay="1">
+          <div class="flex items-center justify-between" style="margin-bottom: 8px;">
+            <span class="data-label">Total Events (30d)</span>
+            <span class="badge badge--blue">All Activity</span>
+          </div>
+          <div class="data-value" data-count="12847">12,847</div>
+          <div class="data-trend" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; color: var(--accent);">
+            <i data-lucide="database" width="14" height="14"></i> Recorded across grid
+          </div>
+        </div>
+
+        <!-- Critical Events -->
+        <div class="card card--data" data-animate="fade-up" data-delay="2">
+          <div class="flex items-center justify-between" style="margin-bottom: 8px;">
+            <span class="data-label">Critical Events</span>
+            <span class="badge badge--red">Critical</span>
+          </div>
+          <div class="data-value" style="color: var(--red);" data-count="23">23</div>
+          <div class="data-trend" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; color: var(--red);">
+            <i data-lucide="shield-alert" width="14" height="14"></i> Auto-isolated &lt; 50ms
+          </div>
+        </div>
+
+        <!-- Warnings -->
+        <div class="card card--data" data-animate="fade-up" data-delay="3">
+          <div class="flex items-center justify-between" style="margin-bottom: 8px;">
+            <span class="data-label">Warnings</span>
+            <span class="badge badge--yellow">Warning</span>
+          </div>
+          <div class="data-value" style="color: var(--yellow);" data-count="156">156</div>
+          <div class="data-trend" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; color: var(--yellow);">
+            <i data-lucide="alert-triangle" width="14" height="14"></i> Monitored &amp; logged
+          </div>
+        </div>
+
+        <!-- Resolved -->
+        <div class="card card--data" data-animate="fade-up" data-delay="4">
+          <div class="flex items-center justify-between" style="margin-bottom: 8px;">
+            <span class="data-label">Resolved</span>
+            <span class="badge badge--green">Resolved</span>
+          </div>
+          <div class="data-value" style="color: var(--green);" data-count="12668">12,668</div>
+          <div class="data-trend" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px; color: var(--green);">
+            <i data-lucide="check-circle" width="14" height="14"></i> 99.85% Normal state
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Distribution Chart -->
+  <section class="section" style="padding-top: 0; padding-bottom: 20px;" data-animate="fade-up">
+    <div class="container">
+      <div class="card" style="padding:24px;">
+        <div class="flex items-center justify-between" style="margin-bottom:16px;">
+          <h4 class="h4 flex items-center gap-sm">
+            <i data-lucide="bar-chart" width="18" height="18" style="color:var(--accent);"></i>
+            Event Distribution (30-Day)
+          </h4>
+          <span class="badge badge--blue">12,847 Total</span>
+        </div>
+        <canvas id="eventDistChart" width="900" height="180" style="width:100%;height:180px;border-radius:var(--radius-md);background:var(--bg-surface);"></canvas>
+        <div class="flex items-center gap-md flex-wrap" style="margin-top:10px;">
+          <span class="small flex items-center gap-sm"><span style="width:10px;height:10px;border-radius:2px;background:#3fb950;display:inline-block;"></span> Resolved (12,668)</span>
+          <span class="small flex items-center gap-sm"><span style="width:10px;height:10px;border-radius:2px;background:#d29922;display:inline-block;"></span> Warnings (156)</span>
+          <span class="small flex items-center gap-sm"><span style="width:10px;height:10px;border-radius:2px;background:#f85149;display:inline-block;"></span> Critical (23)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Timeline & Sidebar Section -->
+  <section class="section" style="padding-top: 20px;" data-animate="fade-up">
+    <div class="container">
+      <div class="events-timeline-grid">
+        
+        <!-- Left Column: Recent Events List -->
+        <div class="card" style="padding: 28px 32px;" data-animate="fade-up" data-delay="1">
+          <div class="section-header" style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="label" style="margin-bottom: 6px;">LIVE FEED</div>
+                <h3 class="h3" style="margin-bottom: 0;">Recent Events</h3>
+              </div>
+              <span class="tag"><span class="status-dot status-dot--green" style="margin-right: 4px;"></span> Active Feed</span>
+            </div>
+          </div>
+
+          <div class="events-list">
+            <!-- Event a: FAULT -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--red); box-shadow: 0 0 8px rgba(248, 81, 73, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--red);">FAULT</div>
+                <div class="event-item__title">Line Break Detected</div>
+                <div class="event-item__desc">Abnormal condition detected on Section 03. Automatic response initiated.</div>
+              </div>
+              <div class="event-item__time">2 min ago</div>
+            </div>
+
+            <!-- Event b: ISOLATION -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--purple); box-shadow: 0 0 8px rgba(163, 113, 247, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--purple);">ISOLATION</div>
+                <div class="event-item__title">Section Isolated</div>
+                <div class="event-item__desc">Section 03 successfully isolated to prevent cascade failure.</div>
+              </div>
+              <div class="event-item__time">2 min ago</div>
+            </div>
+
+            <!-- Event c: RECOVERY -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--green); box-shadow: 0 0 8px rgba(63, 185, 80, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--green);">RECOVERY</div>
+                <div class="event-item__title">Normal Operation Restored</div>
+                <div class="event-item__desc">System returned to normal operating parameters.</div>
+              </div>
+              <div class="event-item__time">15 min ago</div>
+            </div>
+
+            <!-- Event d: WARNING -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--yellow); box-shadow: 0 0 8px rgba(210, 153, 34, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--yellow);">WARNING</div>
+                <div class="event-item__title">Voltage Fluctuation</div>
+                <div class="event-item__desc">Voltage exceeded normal threshold on Section 06.</div>
+              </div>
+              <div class="event-item__time">28 min ago</div>
+            </div>
+
+            <!-- Event e: SYSTEM -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--text-tertiary);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--text-tertiary);">SYSTEM</div>
+                <div class="event-item__title">Diagnostic Check</div>
+                <div class="event-item__desc">Routine automated diagnostic. All systems nominal.</div>
+              </div>
+              <div class="event-item__time">45 min ago</div>
+            </div>
+
+            <!-- Event f: COMMUNICATION -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--accent); box-shadow: 0 0 8px rgba(88, 166, 255, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--accent);">COMMUNICATION</div>
+                <div class="event-item__title">Sync Completed</div>
+                <div class="event-item__desc">Data synchronization with central command completed.</div>
+              </div>
+              <div class="event-item__time">1 hr ago</div>
+            </div>
+
+            <!-- Event g: RECOVERY -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--green); box-shadow: 0 0 8px rgba(63, 185, 80, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--green);">RECOVERY</div>
+                <div class="event-item__title">Section 06 Restored</div>
+                <div class="event-item__desc">Power restored after voltage fluctuation event.</div>
+              </div>
+              <div class="event-item__time">1 hr ago</div>
+            </div>
+
+            <!-- Event h: FAULT -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--red); box-shadow: 0 0 8px rgba(248, 81, 73, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--red);">FAULT</div>
+                <div class="event-item__title">Impedance Anomaly</div>
+                <div class="event-item__desc">Unusual impedance pattern detected on Section 01.</div>
+              </div>
+              <div class="event-item__time">2 hr ago</div>
+            </div>
+
+            <!-- Event i: SYSTEM -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--text-tertiary);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--text-tertiary);">SYSTEM</div>
+                <div class="event-item__title">Firmware Update</div>
+                <div class="event-item__desc">Edge Unit EU-047 firmware updated to v3.2.1.</div>
+              </div>
+              <div class="event-item__time">3 hr ago</div>
+            </div>
+
+            <!-- Event j: WARNING -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--yellow); box-shadow: 0 0 8px rgba(210, 153, 34, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--yellow);">WARNING</div>
+                <div class="event-item__title">Current Spike</div>
+                <div class="event-item__desc">Momentary current spike detected on Section 05.</div>
+              </div>
+              <div class="event-item__time">4 hr ago</div>
+            </div>
+
+            <!-- Event k: COMMUNICATION -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--accent); box-shadow: 0 0 8px rgba(88, 166, 255, 0.5);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--accent);">COMMUNICATION</div>
+                <div class="event-item__title">Node Reconnected</div>
+                <div class="event-item__desc">Edge Unit EU-012 reconnected after brief network interruption.</div>
+              </div>
+              <div class="event-item__time">5 hr ago</div>
+            </div>
+
+            <!-- Event l: SYSTEM -->
+            <div class="event-item">
+              <div class="event-item__dot" style="background: var(--text-tertiary);"></div>
+              <div class="event-item__content">
+                <div class="event-item__type" style="color: var(--text-tertiary);">SYSTEM</div>
+                <div class="event-item__title">Calibration Complete</div>
+                <div class="event-item__desc">Sensor calibration for Zone B completed successfully.</div>
+              </div>
+              <div class="event-item__time">6 hr ago</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sticky Sidebar -->
+        <aside class="sticky-sidebar">
+          <div class="card" data-animate="fade-up" data-delay="2">
+            <h4 class="h4" style="margin-bottom: 20px;">Event Statistics (24H)</h4>
+            
+            <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px;">
+              <!-- Total Events -->
+              <div class="sidebar-stat-row">
+                <span style="color: var(--text-secondary); font-size: 0.9rem;">Total Events</span>
+                <span class="mono" style="font-weight: 600; color: var(--text-primary); font-size: 1rem;">847</span>
+              </div>
+
+              <!-- Faults -->
+              <div class="sidebar-stat-row">
+                <span style="color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                  <span class="status-dot status-dot--red"></span> Faults
+                </span>
+                <span class="mono" style="font-weight: 600; color: var(--red); font-size: 1rem;">3</span>
+              </div>
+
+              <!-- Warnings -->
+              <div class="sidebar-stat-row">
+                <span style="color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                  <span class="status-dot status-dot--yellow"></span> Warnings
+                </span>
+                <span class="mono" style="font-weight: 600; color: var(--yellow); font-size: 1rem;">12</span>
+              </div>
+
+              <!-- Isolations -->
+              <div class="sidebar-stat-row">
+                <span style="color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 6px var(--purple); display: inline-block;"></span> Isolations
+                </span>
+                <span class="mono" style="font-weight: 600; color: var(--purple); font-size: 1rem;">3</span>
+              </div>
+
+              <!-- Recoveries -->
+              <div class="sidebar-stat-row">
+                <span style="color: var(--text-secondary); font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+                  <span class="status-dot status-dot--green"></span> Recoveries
+                </span>
+                <span class="mono" style="font-weight: 600; color: var(--green); font-size: 1rem;">6</span>
+              </div>
+            </div>
+
+            <a href="analytics.html" class="btn btn--secondary" style="width: 100%; justify-content: center;">
+              Open Analytics <i data-lucide="arrow-right" width="16" height="16"></i>
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Categories Section -->
+  <section class="section" data-animate="fade-up">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="label">EVENT TYPES</div>
+        <h2 class="h2">Classification System</h2>
+        <p>Standardized classification architecture mapping real-time grid signals to automated protective responses and diagnostic tracking.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <!-- Detection Events -->
+        <div class="card" data-animate="fade-up" data-delay="1">
+          <div class="card__icon card__icon--red">
+            <i data-lucide="alert-triangle" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Detection Events</h3>
+          <p class="card__desc">Line breaks, impedance changes, voltage anomalies</p>
+        </div>
+
+        <!-- Protection Events -->
+        <div class="card" data-animate="fade-up" data-delay="2">
+          <div class="card__icon card__icon--purple">
+            <i data-lucide="shield" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Protection Events</h3>
+          <p class="card__desc">Isolation commands, trip actions, breaker operations</p>
+        </div>
+
+        <!-- Restoration Events -->
+        <div class="card" data-animate="fade-up" data-delay="3">
+          <div class="card__icon card__icon--green">
+            <i data-lucide="refresh-cw" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Restoration Events</h3>
+          <p class="card__desc">Power restoration, section tests, load redistribution</p>
+        </div>
+
+        <!-- System Events -->
+        <div class="card" data-animate="fade-up" data-delay="4">
+          <div class="card__icon">
+            <i data-lucide="settings" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">System Events</h3>
+          <p class="card__desc">Configuration changes, firmware updates, diagnostics</p>
+        </div>
+
+        <!-- Communication Events -->
+        <div class="card" data-animate="fade-up" data-delay="5">
+          <div class="card__icon">
+            <i data-lucide="wifi" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Communication Events</h3>
+          <p class="card__desc">Sync operations, node connections, telemetry updates</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" data-animate="fade-up">
+    <div class="container">
+      <div class="card">
+        <h2 class="h2">Need deeper telemetry insights?</h2>
+        <p>Explore full statistical breakdowns, historical trends, and line health metrics in our interactive analytics console.</p>
+        <div class="hero__actions">
+          <a href="analytics.html" class="btn btn--primary">
+            Explore Analytics
+            <i data-lucide="bar-chart-3" width="16" height="16"></i>
+          </a>
+          <a href="monitoring.html" class="btn btn--secondary">
+            Open Live Monitoring &rarr;
+            <i data-lucide="activity" width="16" height="16"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation for safer electrical infrastructure.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Company</div><ul class="footer__links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Compliance</a></div></div></div></footer>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Shared JavaScript -->
+  <script src="js/main.js?v=2.9"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // ===== EVENT DISTRIBUTION BAR CHART =====
+      const canvas = document.getElementById('eventDistChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
+      const w = rect.width, h = rect.height;
+      const pad = { top: 16, right: 60, bottom: 28, left: 90 };
+      const cw = w - pad.left - pad.right;
+      const ch = h - pad.top - pad.bottom;
+
+      const categories = [
+        { label: 'Resolved', value: 12668, color: '#3fb950' },
+        { label: 'Warnings', value: 156, color: '#d29922' },
+        { label: 'Critical', value: 23, color: '#f85149' },
+      ];
+      const maxVal = 12668;
+      const barH = Math.min(36, ch / categories.length * 0.65);
+      const gap = ch / categories.length;
+
+      categories.forEach((cat, i) => {
+        const y = pad.top + i * gap + (gap - barH) / 2;
+        const barW = (cat.value / maxVal) * cw;
+
+        // Bar with gradient
+        const grad = ctx.createLinearGradient(pad.left, 0, pad.left + barW, 0);
+        grad.addColorStop(0, cat.color);
+        grad.addColorStop(1, cat.color + '44');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        const r = 4;
+        ctx.moveTo(pad.left, y);
+        ctx.lineTo(pad.left + barW - r, y);
+        ctx.quadraticCurveTo(pad.left + barW, y, pad.left + barW, y + r);
+        ctx.lineTo(pad.left + barW, y + barH - r);
+        ctx.quadraticCurveTo(pad.left + barW, y + barH, pad.left + barW - r, y + barH);
+        ctx.lineTo(pad.left, y + barH);
+        ctx.closePath();
+        ctx.fill();
+
+        // Label
+        ctx.fillStyle = '#f0f6fc';
+        ctx.font = '11px Inter, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(cat.label, pad.left - 10, y + barH / 2);
+
+        // Value
+        ctx.fillStyle = cat.color;
+        ctx.font = 'bold 11px JetBrains Mono, monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(cat.value.toLocaleString(), pad.left + barW + 8, y + barH / 2);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+

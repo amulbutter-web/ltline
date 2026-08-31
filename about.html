@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Project &mdash; Smart LT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">SL</div>SMART LT</a><ul class="nav__links"><li><a href="index.html">Home</a></li><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Monitoring</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a><button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button></div></nav>
+  <div class="mobile-menu"><button class="nav__close" aria-label="Close">&times;</button><a href="index.html">Home</a><a href="technology.html">Technology</a><a href="monitoring.html">Monitoring</a><a href="analytics.html">Analytics</a><a href="events.html">Events</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a></div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" data-animate="fade-up">
+    <div class="hero__bg"></div>
+    <div class="container">
+      <div class="hero__content hero__content--center">
+        <div class="hero__label">HACKATHON MVP PROJECT</div>
+        <h1 class="display hero__title">Smart Line Break Protection for the Future Grid.</h1>
+        <p class="hero__desc">Developed as a hackathon prototype for real-time electrical line break detection, sub-50ms automated section isolation, and interactive grid telemetry visualizer.</p>
+        <div class="hero__actions">
+          <a href="monitoring.html" class="btn btn--primary btn--lg">
+            <i data-lucide="play" width="18" height="18"></i>
+            Try Live Dashboard
+          </a>
+          <a href="technology.html" class="btn btn--secondary btn--lg">
+            <i data-lucide="cpu" width="18" height="18"></i>
+            Explore Detection Tech
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HACKATHON MVP STATS SECTION -->
+  <section class="section--sm" data-animate="fade-up">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat__value" data-count="50" data-prefix="< " data-suffix="ms">&lt; 50ms</div>
+          <div class="stat__label">Detection Latency</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value" data-count="10" data-suffix="kHz">10kHz</div>
+          <div class="stat__label">Sampling Frequency</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value" data-count="100" data-suffix="%">100%</div>
+          <div class="stat__label">Automated Trip Isolation</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value" style="color:var(--accent);">MVP v1.0</div>
+          <div class="stat__label">Hackathon Prototype</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM & HACKATHON SOLUTION -->
+  <section class="section" data-animate="fade-up">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="label">THE MISSION</div>
+        <h2 class="h2">Why We Built Smart LT</h2>
+        <p>A hackathon initiative to solve physical line break risks on low-voltage distribution lines before they cause wildfires, damage, or widespread blackout cascades.</p>
+      </div>
+
+      <div class="grid grid-2">
+        <!-- The Problem -->
+        <div class="card" data-animate="fade-up" data-delay="1" style="border-left: 3px solid var(--red);">
+          <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+            <i data-lucide="alert-triangle" width="22" height="22" style="color:var(--red);"></i>
+            <h3 class="card__title" style="margin-bottom:0;">The Grid Safety Problem</h3>
+          </div>
+          <p class="card__desc">Low-tension (LT) overhead electrical lines are highly vulnerable to physical breakage from storms, fallen trees, and aging infrastructure. Conventional protection relays often fail to detect downed live wires quickly, creating severe electrocution hazards, property fires, and unmanaged outages.</p>
+        </div>
+
+        <!-- The Solution -->
+        <div class="card" data-animate="fade-up" data-delay="2" style="border-left: 3px solid var(--green);">
+          <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+            <i data-lucide="shield-check" width="22" height="22" style="color:var(--green);"></i>
+            <h3 class="card__title" style="margin-bottom:0;">Our Hackathon Solution</h3>
+          </div>
+          <p class="card__desc">Smart LT combines continuous high-frequency signal sampling with edge ML pattern matching. Within 50 milliseconds of a break, the system pinpoints the broken line segment, trips automated sectionalizing switches, and alerts grid operators via a real-time web dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK & FEATURES -->
+  <section class="section" data-animate="fade-up">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="label">HACKATHON ARCHITECTURE</div>
+        <h2 class="h2">Core Technical Features</h2>
+        <p>Key components developed for the hackathon MVP prototype.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <!-- 01 Signal Sampling -->
+        <div class="card" data-animate="fade-up" data-delay="1">
+          <div class="card__number">01</div>
+          <div class="card__icon">
+            <i data-lucide="activity" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">High-Speed Signal Stream</h3>
+          <p class="card__desc">Simulates 10kHz+ sampling of line voltage and current to detect transient impedance drops instantantly.</p>
+        </div>
+
+        <!-- 02 Edge Inference -->
+        <div class="card" data-animate="fade-up" data-delay="2">
+          <div class="card__number">02</div>
+          <div class="card__icon card__icon--cyan">
+            <i data-lucide="cpu" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Sub-50ms Edge Inference</h3>
+          <p class="card__desc">Lightweight neural net classifier designed for microcontrollers to distinguish true line breaks from normal load switching.</p>
+        </div>
+
+        <!-- 03 Topology Engine -->
+        <div class="card" data-animate="fade-up" data-delay="3">
+          <div class="card__number">03</div>
+          <div class="card__icon card__icon--green">
+            <i data-lucide="network" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Visual Topology Engine</h3>
+          <p class="card__desc">Interactive Canvas telemetry map displaying real-time power flow across monitored substation sections.</p>
+        </div>
+
+        <!-- 04 Live Fault Simulator -->
+        <div class="card" data-animate="fade-up" data-delay="4">
+          <div class="card__number">04</div>
+          <div class="card__icon card__icon--purple">
+            <i data-lucide="zap-off" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Live Fault Injection</h3>
+          <p class="card__desc">Interactive 6-step simulator demonstrating real-time fault detection, isolation, and auto-restoration pipeline.</p>
+        </div>
+
+        <!-- 05 AI Diagnostic Assistant -->
+        <div class="card" data-animate="fade-up" data-delay="5">
+          <div class="card__number">05</div>
+          <div class="card__icon card__icon--yellow">
+            <i data-lucide="sparkles" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">AI Grid Assistant</h3>
+          <p class="card__desc">Built-in AI Assistant drawer for natural language grid diagnostics, fault troubleshooting, and demo controls.</p>
+        </div>
+
+        <!-- 06 Modern Web Stack -->
+        <div class="card" data-animate="fade-up" data-delay="6">
+          <div class="card__number">06</div>
+          <div class="card__icon">
+            <i data-lucide="code" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Zero-Dependency Stack</h3>
+          <p class="card__desc">Vanilla HTML5, Glassmorphism CSS, Canvas 2D graphics, and Lucide icons for ultra-fast, lightweight performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HACKATHON DEVELOPMENT TIMELINE -->
+  <section class="section" data-animate="fade-up">
+    <div class="container container--narrow">
+      <div class="section-header section-header--center">
+        <div class="label">HACKATHON SPRINTS</div>
+        <h2 class="h2">Development Milestones</h2>
+        <p>How the prototype was conceptualized, built, and deployed during the hackathon.</p>
+      </div>
+
+      <div class="timeline">
+        <!-- Sprint 1 -->
+        <div class="timeline__item" data-animate="fade-up" data-delay="1">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">SPRINT 01</div>
+          <div class="timeline__title">Problem Validation & Architecture</div>
+          <div class="timeline__desc">Analyzed electrical line break dynamics and defined sub-50ms detection requirements.</div>
+        </div>
+
+        <!-- Sprint 2 -->
+        <div class="timeline__item" data-animate="fade-up" data-delay="2">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">SPRINT 02</div>
+          <div class="timeline__title">Signal Processing & Simulation Model</div>
+          <div class="timeline__desc">Built high-frequency waveform generator and lightweight impedance classification logic.</div>
+        </div>
+
+        <!-- Sprint 3 -->
+        <div class="timeline__item" data-animate="fade-up" data-delay="3">
+          <div class="timeline__dot"></div>
+          <div class="timeline__year">SPRINT 03</div>
+          <div class="timeline__title">Dashboard UI & Topology Canvas</div>
+          <div class="timeline__desc">Created live monitoring dashboard, network topology visualizer, and 24-hour analytics trend charts.</div>
+        </div>
+
+        <!-- Sprint 4 -->
+        <div class="timeline__item" data-animate="fade-up" data-delay="4">
+          <div class="timeline__dot timeline__dot--active"></div>
+          <div class="timeline__year">SPRINT 04</div>
+          <div class="timeline__title">AI Integration & Cloud Deployment</div>
+          <div class="timeline__desc">Integrated SL-AI Grid Assistant, interactive fault simulator, animated grid background, and deployed to Netlify.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="section section--sm cta-section" data-animate="fade-up">
+    <div class="container">
+      <div class="card card--accent">
+        <h2 class="h2">Try the Hackathon Prototype Live</h2>
+        <p>Test the interactive fault simulator, explore real-time telemetry visualizers, or send feedback to our hackathon team.</p>
+        <div class="hero__actions">
+          <a href="monitoring.html" class="btn btn--primary btn--lg">
+            <i data-lucide="play-circle" width="18" height="18"></i>
+            Open Live Console
+          </a>
+          <a href="contact.html" class="btn btn--secondary btn--lg">
+            <i data-lucide="message-square" width="18" height="18"></i>
+            Send Team Feedback
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation prototype built for the hackathon.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Project</div><ul class="footer__links"><li><a href="about.html">About MVP</a></li><li><a href="contact.html">Team Feedback</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Hackathon Demo</a></div></div></div></footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js?v=2.9"></script>
+</body>
+</html>
+
+
+
+

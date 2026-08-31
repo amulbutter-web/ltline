@@ -1,0 +1,976 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Monitoring &mdash; Smart LT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+  <style>
+    /* Live Monitoring Dashboard Styles */
+    .dash-header-bar {
+      padding-top: calc(var(--nav-height) + 24px);
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(13, 17, 23, 0.4);
+    }
+    .dash-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .dash-main {
+      padding: 32px 0 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .grid-2-1 {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 1024px) {
+      .grid-2-1 {
+        grid-template-columns: 1fr;
+      }
+    }
+    .topo-scroll-container {
+      overflow-x: auto;
+      padding: 12px 4px 16px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-light) transparent;
+    }
+    .topo-scroll-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    .topo-scroll-container::-webkit-scrollbar-track {
+      background: var(--bg-surface);
+      border-radius: var(--radius-full);
+    }
+    .topo-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--border-light);
+      border-radius: var(--radius-full);
+    }
+    .topo-track {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: max-content;
+    }
+    .topo-node {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      min-width: 104px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition-base);
+    }
+    .topo-node:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .topo-node--special {
+      background: var(--bg-elevated);
+      border-color: var(--border-accent);
+    }
+    .topo-node__name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+    }
+    .topo-node__val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .topo-arrow {
+      color: var(--text-tertiary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .sim-progress-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0;
+    }
+    .sim-step {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--text-tertiary);
+      transition: all var(--transition-base);
+    }
+    .sim-step.active {
+      background: var(--green-dim);
+      color: var(--green);
+      border-color: rgba(63, 185, 80, 0.4);
+      box-shadow: 0 0 12px rgba(63, 185, 80, 0.2);
+    }
+    .sim-step.state-fault {
+      background: var(--red-dim);
+      color: var(--red);
+      border-color: rgba(248, 81, 73, 0.4);
+      box-shadow: 0 0 12px rgba(248, 81, 73, 0.2);
+    }
+    .sim-step.state-isolate {
+      background: var(--purple-dim);
+      color: var(--purple);
+      border-color: rgba(163, 113, 247, 0.4);
+      box-shadow: 0 0 12px rgba(163, 113, 247, 0.2);
+    }
+    .sim-arrow {
+      color: var(--text-tertiary);
+      font-size: 0.8rem;
+    }
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 560px) {
+      .quick-actions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">SL</div>SMART LT</a><ul class="nav__links"><li><a href="index.html">Home</a></li><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Monitoring</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a><button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button></div></nav>
+  <div class="mobile-menu"><button class="nav__close" aria-label="Close">&times;</button><a href="index.html">Home</a><a href="technology.html">Technology</a><a href="monitoring.html">Monitoring</a><a href="analytics.html">Analytics</a><a href="events.html">Events</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a></div>
+
+  <!-- 1. DASHBOARD HEADER BAR -->
+  <header class="dash-header-bar" data-animate="fade-up">
+    <div class="container">
+      <div class="dash-header-inner">
+        <!-- Left: Label -->
+        <div class="label flex items-center gap-sm">
+          <i data-lucide="activity" width="16" height="16" style="color:var(--accent);"></i>
+          <span>SMART LT / LIVE MONITORING</span>
+        </div>
+
+        <!-- Center: System Status Badge -->
+        <div id="systemStatusBadge" class="badge badge--green">
+          <span class="status-dot status-dot--green"></span>
+          <span>SYSTEM NORMAL</span>
+        </div>
+
+        <!-- Right: Demo Mode & Live Clock -->
+        <div class="flex items-center gap-md">
+          <div class="badge badge--blue">
+            <span class="status-dot status-dot--blue"></span>
+            <span>DEMO MODE</span>
+          </div>
+          <span id="liveClock" class="mono" style="font-size:0.875rem;font-weight:500;color:var(--text-primary);letter-spacing:0.05em;">12:00:00</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT -->
+  <main class="container dash-main">
+
+    <!-- 2. METRIC CARDS -->
+    <section data-animate="fade-up">
+      <div class="dash-grid">
+        <!-- Card 1: Line Voltage -->
+        <div class="card card--data" style="border-left: 3px solid var(--accent);">
+          <span class="data-label">Line Voltage</span>
+          <div class="data-value" id="valVoltage">240.0 <span style="font-size:1rem;color:var(--text-tertiary);">V</span></div>
+          <div class="data-trend up" style="font-size:0.75rem;">
+            <i data-lucide="check-circle" width="12" height="12" style="display:inline;vertical-align:middle;"></i> Nominal (&plusmn;0.5%)
+          </div>
+        </div>
+
+        <!-- Card 2: System Current -->
+        <div class="card card--data" style="border-left: 3px solid var(--accent);">
+          <span class="data-label">System Current</span>
+          <div class="data-value" id="valCurrent">45.2 <span style="font-size:1rem;color:var(--text-tertiary);">A</span></div>
+          <div class="data-trend stable" style="font-size:0.75rem;">Balanced Load</div>
+        </div>
+
+        <!-- Card 3: Grid Frequency -->
+        <div class="card card--data" style="border-left: 3px solid var(--cyan);">
+          <span class="data-label">Grid Frequency</span>
+          <div class="data-value" id="valFrequency">50.00 <span style="font-size:1rem;color:var(--text-tertiary);">Hz</span></div>
+          <div class="data-trend stable" style="font-size:0.75rem;">Sync Locked</div>
+        </div>
+
+        <!-- Card 4: System Health -->
+        <div class="card card--data" style="border-left: 3px solid var(--green);">
+          <span class="data-label">System Health</span>
+          <div class="data-value" id="valHealth" style="color:var(--green);">100.0 <span style="font-size:1rem;color:var(--text-tertiary);">%</span></div>
+          <div class="data-trend up" style="font-size:0.75rem;">All Systems Optimal</div>
+        </div>
+
+        <!-- Card 5: Active Sections -->
+        <div class="card card--data" style="border-left: 3px solid var(--border-light);">
+          <span class="data-label">Active Sections</span>
+          <div class="data-value" id="valActiveSections">8 <span style="font-size:1.25rem;color:var(--text-tertiary);">/ 8</span></div>
+          <div class="data-trend stable" style="font-size:0.75rem;">100% Operational</div>
+        </div>
+
+        <!-- Card 6: Isolated Sections -->
+        <div class="card card--data" style="border-left: 3px solid var(--green);">
+          <span class="data-label">Isolated Sections</span>
+          <div class="data-value" id="valIsolatedSections">0</div>
+          <div class="data-trend up" style="font-size:0.75rem;">No Line Breaks</div>
+        </div>
+
+        <!-- Card 7: Active Alerts -->
+        <div class="card card--data" style="border-left: 3px solid var(--green);">
+          <span class="data-label">Active Alerts</span>
+          <div class="data-value" id="valActiveAlerts">0</div>
+          <div class="data-trend up" style="font-size:0.75rem;">Clean Status Log</div>
+        </div>
+
+        <!-- Card 8: Communication -->
+        <div class="card card--data" style="border-left: 3px solid var(--green);">
+          <span class="data-label">Communication</span>
+          <div class="data-value" id="valComm" style="font-size:1.35rem;padding-top:6px;color:var(--green);">CONNECTED</div>
+          <div class="data-trend up" style="font-size:0.75rem;">Mesh &amp; Cellular Live</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. TWO-COLUMN GRID: NETWORK TOPOLOGY & RECENT EVENTS -->
+    <section class="grid-2-1" data-animate="fade-up">
+      <!-- Left: Network Topology -->
+      <div class="card">
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <h4 class="h4 flex items-center gap-sm">
+            <i data-lucide="network" width="18" height="18" style="color:var(--accent);"></i>
+            Network Topology
+          </h4>
+          <span class="badge badge--green">Live Feed</span>
+        </div>
+        <p class="small" style="color:var(--text-secondary);margin-bottom:20px;">
+          Live distribution topology from substation source to endpoint load across all monitored LT sections.
+        </p>
+
+        <!-- Topology nodes container (horizontal scroll on small screens) -->
+        <div class="topo-scroll-container">
+          <div class="topo-track">
+            <!-- Source -->
+            <div class="topo-node topo-node--special">
+              <div class="topo-node__name" style="color:var(--accent);">GRID (SRC)</div>
+              <div class="topo-node__val">240.2 V</div>
+              <span class="badge badge--blue" style="font-size:0.6rem;padding:2px 6px;">Source</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-01 -->
+            <div class="topo-node" id="nodeSec01">
+              <div class="topo-node__name">SEC-01</div>
+              <div class="topo-node__val">240.1 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-02 -->
+            <div class="topo-node" id="nodeSec02">
+              <div class="topo-node__name">SEC-02</div>
+              <div class="topo-node__val">240.0 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-03 -->
+            <div class="topo-node" id="nodeSec03">
+              <div class="topo-node__name">SEC-03</div>
+              <div class="topo-node__val" id="valSec03">239.9 V</div>
+              <span class="badge badge--green" id="badgeSec03" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-04 -->
+            <div class="topo-node" id="nodeSec04">
+              <div class="topo-node__name">SEC-04</div>
+              <div class="topo-node__val">239.8 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-05 -->
+            <div class="topo-node" id="nodeSec05">
+              <div class="topo-node__name">SEC-05</div>
+              <div class="topo-node__val">239.7 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-06 -->
+            <div class="topo-node" id="nodeSec06">
+              <div class="topo-node__name">SEC-06</div>
+              <div class="topo-node__val">239.5 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-07 -->
+            <div class="topo-node" id="nodeSec07">
+              <div class="topo-node__name">SEC-07</div>
+              <div class="topo-node__val">239.4 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- SEC-08 -->
+            <div class="topo-node" id="nodeSec08">
+              <div class="topo-node__name">SEC-08</div>
+              <div class="topo-node__val">239.2 V</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Normal</span>
+            </div>
+
+            <div class="topo-arrow"><i data-lucide="chevron-right" width="16" height="16"></i></div>
+
+            <!-- Load -->
+            <div class="topo-node topo-node--special">
+              <div class="topo-node__name" style="color:var(--cyan);">LOAD</div>
+              <div class="topo-node__val">10.8 kW</div>
+              <span class="badge badge--green" style="font-size:0.6rem;padding:2px 6px;">Supplied</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between flex-wrap gap-md" style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="small" style="color:var(--text-tertiary);">
+            <span style="font-weight:600;color:var(--text-secondary);">End-to-End Latency:</span> 12 ms
+          </div>
+          <div class="small" style="color:var(--text-tertiary);">
+            <span style="font-weight:600;color:var(--text-secondary);">Isolation Switches:</span> 8 Armed
+          </div>
+          <div class="small" style="color:var(--text-tertiary);">
+            <span style="font-weight:600;color:var(--text-secondary);">Line Integrity:</span> 100% Intact
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Recent Events -->
+      <div class="card">
+        <div class="flex items-center justify-between" style="margin-bottom:12px;">
+          <h4 class="h4 flex items-center gap-sm">
+            <i data-lucide="bell" width="18" height="18" style="color:var(--accent);"></i>
+            Recent Events
+          </h4>
+          <span class="tag">Live Log</span>
+        </div>
+
+        <div class="events-list">
+          <!-- 1. FAULT (red dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--red);box-shadow:0 0 6px var(--red);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--red);">FAULT</div>
+              <div class="event-item__title">Line Break Detected</div>
+              <div class="event-item__desc">Section 03</div>
+            </div>
+            <div class="event-item__time">2 min ago</div>
+          </div>
+
+          <!-- 2. ISOLATION (purple dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--purple);box-shadow:0 0 6px var(--purple);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--purple);">ISOLATION</div>
+              <div class="event-item__title">Section Isolated</div>
+              <div class="event-item__desc">Section 03</div>
+            </div>
+            <div class="event-item__time">2 min ago</div>
+          </div>
+
+          <!-- 3. RECOVERY (green dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--green);">RECOVERY</div>
+              <div class="event-item__title">Normal Restored</div>
+              <div class="event-item__desc">System</div>
+            </div>
+            <div class="event-item__time">15 min ago</div>
+          </div>
+
+          <!-- 4. WARNING (yellow dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--yellow);">WARNING</div>
+              <div class="event-item__title">Voltage Fluctuation</div>
+              <div class="event-item__desc">Section 06</div>
+            </div>
+            <div class="event-item__time">28 min ago</div>
+          </div>
+
+          <!-- 5. SYSTEM (grey dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--text-tertiary);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--text-tertiary);">SYSTEM</div>
+              <div class="event-item__title">Diagnostic Check</div>
+              <div class="event-item__desc">All zones</div>
+            </div>
+            <div class="event-item__time">45 min ago</div>
+          </div>
+
+          <!-- 6. COMMUNICATION (blue dot) -->
+          <div class="event-item">
+            <div class="event-item__dot" style="background:var(--accent);box-shadow:0 0 6px var(--accent);"></div>
+            <div class="event-item__content">
+              <div class="event-item__type" style="color:var(--accent);">COMMUNICATION</div>
+              <div class="event-item__title">Sync Completed</div>
+              <div class="event-item__desc">Central</div>
+            </div>
+            <div class="event-item__time">1 hr ago</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;text-align:right;padding-top:12px;border-top:1px solid var(--border);">
+          <a href="events.html" class="small flex items-center justify-end gap-sm" style="font-weight:600;color:var(--text-link);">
+            View All Events <i data-lucide="arrow-right" width="14" height="14"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE TREND CHART -->
+    <section data-animate="fade-up">
+      <div class="card" style="padding:24px;">
+        <div class="flex items-center justify-between" style="margin-bottom:16px;">
+          <h4 class="h4 flex items-center gap-sm">
+            <i data-lucide="trending-up" width="18" height="18" style="color:var(--accent);"></i>
+            Live Voltage Trend (60s)
+          </h4>
+          <span class="badge badge--blue">Real-Time</span>
+        </div>
+        <canvas id="voltageTrendCanvas" width="900" height="220" style="width:100%;height:220px;border-radius:var(--radius-md);background:var(--bg-surface);"></canvas>
+        <div class="flex items-center justify-between flex-wrap gap-md" style="margin-top:12px;">
+          <div class="small mono" style="color:var(--text-tertiary);">Nominal: 240V &plusmn;5% | Sampling: 1Hz demo rate</div>
+          <div class="flex items-center gap-md">
+            <span class="small flex items-center gap-sm"><span style="width:10px;height:3px;border-radius:2px;background:var(--accent);display:inline-block;"></span> Voltage</span>
+            <span class="small flex items-center gap-sm"><span style="width:10px;height:3px;border-radius:2px;background:rgba(88,166,255,0.25);display:inline-block;"></span> Nominal Range</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION VOLTAGE BAR CHART -->
+    <section data-animate="fade-up">
+      <div class="card" style="padding:24px;">
+        <div class="flex items-center justify-between" style="margin-bottom:16px;">
+          <h4 class="h4 flex items-center gap-sm">
+            <i data-lucide="bar-chart-2" width="18" height="18" style="color:var(--cyan);"></i>
+            Section Voltage Distribution
+          </h4>
+          <span class="badge badge--green">All Normal</span>
+        </div>
+        <canvas id="sectionBarCanvas" width="900" height="200" style="width:100%;height:200px;border-radius:var(--radius-md);background:var(--bg-surface);"></canvas>
+        <div class="small mono" style="color:var(--text-tertiary);margin-top:8px;">Voltage readings across all 8 monitored sections vs 240V nominal baseline</div>
+      </div>
+    </section>
+
+    <!-- 4. BOTTOM ROW: FAULT SIMULATION & QUICK ACTIONS -->
+    <section class="grid grid-2" data-animate="fade-up">
+      <!-- Left: Fault Simulation -->
+      <div class="card">
+        <h4 class="h4 flex items-center gap-sm" style="margin-bottom:8px;">
+          <i data-lucide="play-circle" width="18" height="18" style="color:var(--accent);"></i>
+          Fault Simulation
+        </h4>
+        <p class="small" style="color:var(--text-secondary);margin-bottom:16px;">
+          Trigger a simulated line break to observe detection and isolation response.
+        </p>
+
+        <!-- 6-step progress bar -->
+        <div class="sim-progress-bar" id="simStepsContainer">
+          <div class="sim-step active" id="step1">Normal</div>
+          <span class="sim-arrow">&rarr;</span>
+          <div class="sim-step" id="step2">Abnormal</div>
+          <span class="sim-arrow">&rarr;</span>
+          <div class="sim-step" id="step3">Detect</div>
+          <span class="sim-arrow">&rarr;</span>
+          <div class="sim-step" id="step4">Identify</div>
+          <span class="sim-arrow">&rarr;</span>
+          <div class="sim-step" id="step5">Isolate</div>
+          <span class="sim-arrow">&rarr;</span>
+          <div class="sim-step" id="step6">Secured</div>
+        </div>
+
+        <button id="simBtn" class="btn btn--primary" style="width:100%;justify-content:center;margin-top:16px;">
+          <i data-lucide="zap-off" width="16" height="16"></i>
+          Simulate Line Break
+        </button>
+
+        <div class="flex items-center justify-between" style="margin-top:12px;">
+          <span class="micro" style="color:var(--text-tertiary);">Duration: ~15s</span>
+          <span id="simStatusNote" class="micro mono" style="color:var(--accent);">STATUS: READY</span>
+        </div>
+      </div>
+
+      <!-- Right: Quick Actions -->
+      <div class="card">
+        <h4 class="h4 flex items-center gap-sm" style="margin-bottom:8px;">
+          <i data-lucide="sliders" width="18" height="18" style="color:var(--accent);"></i>
+          Quick Actions
+        </h4>
+        <p class="small" style="color:var(--text-secondary);margin-bottom:16px;">
+          Direct access to historical metrics, full audit logs, integration docs, and engineering support.
+        </p>
+
+        <div class="quick-actions-grid">
+          <a href="analytics.html" class="btn btn--secondary" style="width:100%;justify-content:center;">
+            <i data-lucide="bar-chart-2" width="16" height="16"></i>
+            View Analytics
+          </a>
+          <a href="events.html" class="btn btn--secondary" style="width:100%;justify-content:center;">
+            <i data-lucide="list" width="16" height="16"></i>
+            Event History
+          </a>
+          <a href="documentation.html" class="btn btn--secondary" style="width:100%;justify-content:center;">
+            <i data-lucide="file-text" width="16" height="16"></i>
+            Documentation
+          </a>
+          <a href="contact.html" class="btn btn--secondary" style="width:100%;justify-content:center;">
+            <i data-lucide="message-square" width="16" height="16"></i>
+            Contact Support
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation for safer electrical infrastructure.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Company</div><ul class="footer__links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Compliance</a></div></div></div></footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js?v=2.9"></script>
+  <script>
+    // Live Clock Update
+    function updateClock() {
+      const clockEl = document.getElementById('liveClock');
+      if (clockEl) {
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        clockEl.textContent = `${hrs}:${mins}:${secs}`;
+      }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Interactive Fault Simulation
+    (function () {
+      const simBtn = document.getElementById('simBtn');
+      const simStatusNote = document.getElementById('simStatusNote');
+      const systemBadge = document.getElementById('systemStatusBadge');
+      
+      const nodeSec03 = document.getElementById('nodeSec03');
+      const valSec03 = document.getElementById('valSec03');
+      const badgeSec03 = document.getElementById('badgeSec03');
+
+      const valIsolated = document.getElementById('valIsolatedSections');
+      const valActiveAlerts = document.getElementById('valActiveAlerts');
+      const valHealth = document.getElementById('valHealth');
+
+      const steps = [
+        document.getElementById('step1'),
+        document.getElementById('step2'),
+        document.getElementById('step3'),
+        document.getElementById('step4'),
+        document.getElementById('step5'),
+        document.getElementById('step6')
+      ];
+
+      let isSimulating = false;
+
+      function setStepActive(activeIndex, stateClass) {
+        steps.forEach((step, idx) => {
+          step.className = 'sim-step';
+          if (idx === activeIndex) {
+            step.classList.add(stateClass || 'active');
+          }
+        });
+      }
+
+      if (simBtn) {
+        simBtn.addEventListener('click', function () {
+          if (isSimulating) return;
+          isSimulating = true;
+          simBtn.disabled = true;
+          simBtn.style.opacity = '0.6';
+          simBtn.style.cursor = 'not-allowed';
+
+          // Step 1: Normal (t = 0s)
+          setStepActive(0, 'active');
+          simStatusNote.textContent = 'SIMULATION RUNNING: NORMAL';
+          simStatusNote.style.color = 'var(--green)';
+
+          // Step 2: Abnormal Condition (t = 2.5s)
+          setTimeout(() => {
+            setStepActive(1, 'state-fault');
+            simStatusNote.textContent = 'SIMULATION: ABNORMAL DROP DETECTED';
+            simStatusNote.style.color = 'var(--yellow)';
+            if (valSec03) valSec03.textContent = '142.4 V';
+          }, 2500);
+
+          // Step 3: Detect Fault (t = 5s)
+          setTimeout(() => {
+            setStepActive(2, 'state-fault');
+            simStatusNote.textContent = 'SIMULATION: FAULT CONFIRMED (<15ms)';
+            simStatusNote.style.color = 'var(--red)';
+            if (systemBadge) {
+              systemBadge.className = 'badge badge--red';
+              systemBadge.innerHTML = '<span class="status-dot status-dot--red"></span><span>LINE BREAK DETECTED</span>';
+            }
+            if (nodeSec03) {
+              nodeSec03.style.borderColor = 'var(--red)';
+              nodeSec03.style.backgroundColor = 'var(--red-dim)';
+            }
+            if (valSec03) valSec03.textContent = '0.0 V';
+            if (badgeSec03) {
+              badgeSec03.className = 'badge badge--red';
+              badgeSec03.textContent = 'Break';
+            }
+            if (valActiveAlerts) valActiveAlerts.textContent = '1';
+            if (valHealth) {
+              valHealth.textContent = '87.5 %';
+              valHealth.style.color = 'var(--yellow)';
+            }
+          }, 5000);
+
+          // Step 4: Identify Section (t = 7.5s)
+          setTimeout(() => {
+            setStepActive(3, 'state-fault');
+            simStatusNote.textContent = 'SIMULATION: SECTION 03 LOCALIZED';
+            simStatusNote.style.color = 'var(--yellow)';
+          }, 7500);
+
+          // Step 5: Isolate Section (t = 10s)
+          setTimeout(() => {
+            setStepActive(4, 'state-isolate');
+            simStatusNote.textContent = 'SIMULATION: SWITCHES OPENED & ISOLATED';
+            simStatusNote.style.color = 'var(--purple)';
+            if (systemBadge) {
+              systemBadge.className = 'badge badge--purple';
+              systemBadge.innerHTML = '<span class="status-dot status-dot--blue"></span><span>SECTION ISOLATED</span>';
+            }
+            if (nodeSec03) {
+              nodeSec03.style.borderColor = 'var(--purple)';
+              nodeSec03.style.backgroundColor = 'var(--purple-dim)';
+            }
+            if (badgeSec03) {
+              badgeSec03.className = 'badge badge--purple';
+              badgeSec03.textContent = 'Isolated';
+            }
+            if (valIsolated) valIsolated.textContent = '1';
+          }, 10000);
+
+          // Step 6: Secured (t = 12.5s)
+          setTimeout(() => {
+            setStepActive(5, 'active');
+            simStatusNote.textContent = 'SIMULATION: GRID SECURED & PROTECTED';
+            simStatusNote.style.color = 'var(--green)';
+          }, 12500);
+
+          // Reset back to normal (t = 15s)
+          setTimeout(() => {
+            setStepActive(0, 'active');
+            simStatusNote.textContent = 'STATUS: READY (COMPLETE)';
+            simStatusNote.style.color = 'var(--accent)';
+            
+            if (systemBadge) {
+              systemBadge.className = 'badge badge--green';
+              systemBadge.innerHTML = '<span class="status-dot status-dot--green"></span><span>SYSTEM NORMAL</span>';
+            }
+            if (nodeSec03) {
+              nodeSec03.style.borderColor = '';
+              nodeSec03.style.backgroundColor = '';
+            }
+            if (valSec03) valSec03.textContent = '239.9 V';
+            if (badgeSec03) {
+              badgeSec03.className = 'badge badge--green';
+              badgeSec03.textContent = 'Normal';
+            }
+            if (valIsolated) valIsolated.textContent = '0';
+            if (valActiveAlerts) valActiveAlerts.textContent = '0';
+            if (valHealth) {
+              valHealth.textContent = '100.0 %';
+              valHealth.style.color = 'var(--green)';
+            }
+
+            simBtn.disabled = false;
+            simBtn.style.opacity = '1';
+            simBtn.style.cursor = 'pointer';
+            isSimulating = false;
+          }, 15000);
+        });
+      }
+    })();
+
+    // ===== LIVE VOLTAGE TREND CHART =====
+    (function() {
+      const canvas = document.getElementById('voltageTrendCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const dataPoints = [];
+      const maxPoints = 60;
+      const nominal = 240;
+      const minY = 225, maxY = 255;
+
+      // Seed with data
+      for (let i = 0; i < maxPoints; i++) {
+        dataPoints.push(nominal + (Math.random() - 0.5) * 4);
+      }
+
+      function drawTrend() {
+        const w = canvas.width / dpr;
+        const h = canvas.height / dpr;
+        const pad = { top: 20, right: 16, bottom: 30, left: 50 };
+        const cw = w - pad.left - pad.right;
+        const ch = h - pad.top - pad.bottom;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Nominal range band (228-252 = &plusmn;5%)
+        const yLow = pad.top + ch * (1 - (228 - minY) / (maxY - minY));
+        const yHigh = pad.top + ch * (1 - (252 - minY) / (maxY - minY));
+        ctx.fillStyle = 'rgba(88,166,255,0.06)';
+        ctx.fillRect(pad.left, yHigh, cw, yLow - yHigh);
+
+        // Nominal line
+        const yNom = pad.top + ch * (1 - (nominal - minY) / (maxY - minY));
+        ctx.strokeStyle = 'rgba(88,166,255,0.2)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, yNom);
+        ctx.lineTo(pad.left + cw, yNom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Grid lines
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        for (let v = 230; v <= 250; v += 5) {
+          const y = pad.top + ch * (1 - (v - minY) / (maxY - minY));
+          ctx.beginPath();
+          ctx.moveTo(pad.left, y);
+          ctx.lineTo(pad.left + cw, y);
+          ctx.stroke();
+          ctx.fillStyle = 'rgba(255,255,255,0.25)';
+          ctx.font = '10px JetBrains Mono, monospace';
+          ctx.textAlign = 'right';
+          ctx.fillText(v + 'V', pad.left - 8, y + 3);
+        }
+
+        // Data line
+        ctx.strokeStyle = '#58a6ff';
+        ctx.lineWidth = 2;
+        ctx.lineJoin = 'round';
+        ctx.beginPath();
+        for (let i = 0; i < dataPoints.length; i++) {
+          const x = pad.left + (i / (maxPoints - 1)) * cw;
+          const y = pad.top + ch * (1 - (dataPoints[i] - minY) / (maxY - minY));
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Gradient fill under line
+        const gradient = ctx.createLinearGradient(0, pad.top, 0, pad.top + ch);
+        gradient.addColorStop(0, 'rgba(88,166,255,0.15)');
+        gradient.addColorStop(1, 'rgba(88,166,255,0)');
+        ctx.lineTo(pad.left + cw, pad.top + ch);
+        ctx.lineTo(pad.left, pad.top + ch);
+        ctx.closePath();
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Current value dot
+        const lastVal = dataPoints[dataPoints.length - 1];
+        const lastX = pad.left + cw;
+        const lastY = pad.top + ch * (1 - (lastVal - minY) / (maxY - minY));
+        ctx.beginPath();
+        ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#58a6ff';
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(lastX, lastY, 7, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(88,166,255,0.4)';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Current value label
+        ctx.fillStyle = '#f0f6fc';
+        ctx.font = 'bold 11px JetBrains Mono, monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText(lastVal.toFixed(1) + 'V', lastX - 14, lastY - 10);
+
+        // X-axis labels
+        ctx.fillStyle = 'rgba(255,255,255,0.2)';
+        ctx.font = '9px JetBrains Mono, monospace';
+        ctx.textAlign = 'center';
+        for (let i = 0; i <= 6; i++) {
+          const x = pad.left + (i / 6) * cw;
+          ctx.fillText('-' + (60 - i * 10) + 's', x, h - 8);
+        }
+      }
+
+      function tick() {
+        dataPoints.shift();
+        dataPoints.push(nominal + (Math.random() - 0.5) * 5 + Math.sin(Date.now() / 3000) * 1.5);
+        drawTrend();
+      }
+      drawTrend();
+      setInterval(tick, 1000);
+    })();
+
+    // ===== SECTION VOLTAGE BAR CHART =====
+    (function() {
+      const canvas = document.getElementById('sectionBarCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      
+      function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        ctx.scale(dpr, dpr);
+      }
+      resizeCanvas();
+
+      const sections = ['SEC-01','SEC-02','SEC-03','SEC-04','SEC-05','SEC-06','SEC-07','SEC-08'];
+      const voltages = [240.1, 240.0, 239.9, 239.8, 239.7, 239.5, 239.4, 239.2];
+      const nominal = 240;
+
+      function drawBars() {
+        const w = canvas.width / dpr;
+        const h = canvas.height / dpr;
+        const pad = { top: 20, right: 16, bottom: 36, left: 50 };
+        const cw = w - pad.left - pad.right;
+        const ch = h - pad.top - pad.bottom;
+        const barWidth = cw / sections.length * 0.6;
+        const gap = cw / sections.length;
+        const minV = 235, maxV = 245;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Nominal line
+        const yNom = pad.top + ch * (1 - (nominal - minV) / (maxV - minV));
+        ctx.strokeStyle = 'rgba(88,166,255,0.3)';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([6, 4]);
+        ctx.beginPath();
+        ctx.moveTo(pad.left, yNom);
+        ctx.lineTo(pad.left + cw, yNom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx.font = '9px JetBrains Mono, monospace';
+        ctx.textAlign = 'right';
+        ctx.fillText('240V Nominal', pad.left - 8, yNom + 3);
+
+        // Y-axis labels
+        for (let v = 236; v <= 244; v += 2) {
+          const y = pad.top + ch * (1 - (v - minV) / (maxV - minV));
+          ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+          ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + cw, y); ctx.stroke();
+          ctx.fillStyle = 'rgba(255,255,255,0.2)';
+          ctx.textAlign = 'right';
+          ctx.fillText(v + 'V', pad.left - 8, y + 3);
+        }
+
+        // Bars
+        for (let i = 0; i < sections.length; i++) {
+          const x = pad.left + i * gap + (gap - barWidth) / 2;
+          const barH = ch * ((voltages[i] - minV) / (maxV - minV));
+          const y = pad.top + ch - barH;
+
+          // Bar gradient
+          const grad = ctx.createLinearGradient(x, y, x, pad.top + ch);
+          grad.addColorStop(0, 'rgba(63,185,80,0.7)');
+          grad.addColorStop(1, 'rgba(63,185,80,0.15)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          const r = 4;
+          ctx.moveTo(x + r, y);
+          ctx.lineTo(x + barWidth - r, y);
+          ctx.quadraticCurveTo(x + barWidth, y, x + barWidth, y + r);
+          ctx.lineTo(x + barWidth, pad.top + ch);
+          ctx.lineTo(x, pad.top + ch);
+          ctx.lineTo(x, y + r);
+          ctx.quadraticCurveTo(x, y, x + r, y);
+          ctx.fill();
+
+          // Value on top
+          ctx.fillStyle = '#f0f6fc';
+          ctx.font = 'bold 10px JetBrains Mono, monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(voltages[i].toFixed(1), x + barWidth / 2, y - 6);
+
+          // X label
+          ctx.fillStyle = 'rgba(255,255,255,0.35)';
+          ctx.font = '9px JetBrains Mono, monospace';
+          ctx.fillText(sections[i], x + barWidth / 2, h - 10);
+        }
+      }
+      drawBars();
+      window.addEventListener('resize', function() { resizeCanvas(); drawBars(); });
+    })();
+  </script>
+</body>
+</html>
+
+
+
+

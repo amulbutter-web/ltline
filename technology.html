@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technology &mdash; Smart LT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">
+        <div class="nav__logo-icon">SL</div>
+        SMART LT
+      </a>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="technology.html" class="active">Technology</a></li>
+        <li><a href="monitoring.html">Monitoring</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a>
+      <button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu">
+    <button class="nav__close" aria-label="Close">&times;</button>
+    <a href="index.html">Home</a>
+    <a href="technology.html" class="active">Technology</a>
+    <a href="monitoring.html">Monitoring</a>
+    <a href="analytics.html">Analytics</a>
+    <a href="events.html">Events</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" data-animate="fade-up">
+    <div class="hero__bg"></div>
+    <div class="container">
+      <div class="hero__content hero__content--center">
+        <div class="hero__label">TECHNOLOGY</div>
+        <h1 class="display hero__title">Intelligence Between the Source and the Load.</h1>
+        <p class="hero__desc">Smart LT creates an intelligent monitoring layer across electrical distribution lines, enabling automatic detection, identification, and isolation of line-break events.</p>
+        <div class="hero__actions">
+          <a href="monitoring.html" class="btn btn--primary btn--lg">See It in Action <i data-lucide="arrow-right" width="18" height="18"></i></a>
+          <a href="architecture.html" class="btn btn--secondary btn--lg">View Architecture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6-Step Technology Sequence -->
+  <section class="section" data-animate="fade-up">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="label">DETECTION PIPELINE</div>
+        <h2 class="h2">From Signal to Safety</h2>
+        <p>A continuous six-stage pipeline engineered for millisecond precision from raw electrical transient to guaranteed isolation.</p>
+      </div>
+      <div class="grid grid-3">
+        <!-- Step 01 -->
+        <div class="card" data-animate="fade-up" data-delay="1">
+          <div class="process-step">
+            <div class="process-step__number">01</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon card__icon--cyan" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="activity" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">MONITOR</h3>
+              </div>
+              <p class="card__desc">Continuously observe electrical conditions across the line. High-frequency sampling at 10kHz+ captures transient signatures.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="card" data-animate="fade-up" data-delay="2">
+          <div class="process-step">
+            <div class="process-step__number">02</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon card__icon--yellow" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="alert-triangle" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">DETECT</h3>
+              </div>
+              <p class="card__desc">Identify abnormal line-break conditions. Lightweight neural networks achieve &lt; 50ms inference time.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="card" data-animate="fade-up" data-delay="3">
+          <div class="process-step">
+            <div class="process-step__number">03</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon card__icon--purple" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="crosshair" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">LOCATE</h3>
+              </div>
+              <p class="card__desc">Determine the affected section. Real-time impedance spectroscopy pinpoints break location.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 04 -->
+        <div class="card" data-animate="fade-up" data-delay="4">
+          <div class="process-step">
+            <div class="process-step__number">04</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="cpu" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">DECIDE</h3>
+              </div>
+              <p class="card__desc">Evaluate the event using intelligent protection logic. Multi-variable logic gating with threshold-based triggering.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 05 -->
+        <div class="card" data-animate="fade-up" data-delay="5">
+          <div class="process-step">
+            <div class="process-step__number">05</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon card__icon--red" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="shield" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">ISOLATE</h3>
+              </div>
+              <p class="card__desc">Automatically isolate the affected section. High-speed breakers with fail-safe operation via IEC 61850 GOOSE.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 06 -->
+        <div class="card" data-animate="fade-up" data-delay="6">
+          <div class="process-step">
+            <div class="process-step__number">06</div>
+            <div class="process-step__content">
+              <div class="flex items-center gap-sm" style="margin-bottom: 12px;">
+                <div class="card__icon card__icon--green" style="width: 36px; height: 36px; margin-bottom: 0;">
+                  <i data-lucide="file-text" width="18" height="18"></i>
+                </div>
+                <h3 class="card__title" style="margin-bottom: 0;">REPORT</h3>
+              </div>
+              <p class="card__desc">Record and communicate the event. Complete timestamped logs integrated with SCADA/cloud dashboards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Technologies -->
+  <section class="section" style="background: var(--bg-surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);" data-animate="fade-up">
+    <div class="container">
+      <div class="section-header section-header--center">
+        <div class="label">CORE TECHNOLOGIES</div>
+        <h2 class="h2">Built on Proven Foundations</h2>
+        <p>A synergistic blend of high-speed hardware sampling, embedded edge intelligence, and standard utility telecommunications.</p>
+      </div>
+      <div class="grid grid-3">
+        <!-- Card 1 -->
+        <div class="card" data-animate="fade-up" data-delay="1">
+          <div class="card__icon">
+            <i data-lucide="radio" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">High-Frequency Sampling</h3>
+          <p class="card__desc">10kHz+ sampling of voltage, current, impedance &mdash; captures transient signatures invisible to conventional systems.</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card" data-animate="fade-up" data-delay="2">
+          <div class="card__icon">
+            <i data-lucide="brain" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Edge ML Models</h3>
+          <p class="card__desc">Lightweight neural networks running directly on Edge Units with &lt; 50ms inference for real-time classification.</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card" data-animate="fade-up" data-delay="3">
+          <div class="card__icon">
+            <i data-lucide="zap" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">IEC 61850 GOOSE</h3>
+          <p class="card__desc">Sub-millisecond peer-to-peer messaging protocol for ultra-fast trip signal delivery between protection devices.</p>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card" data-animate="fade-up" data-delay="4">
+          <div class="card__icon">
+            <i data-lucide="gauge" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Impedance Analysis</h3>
+          <p class="card__desc">Real-time impedance spectroscopy detects and precisely locates line breaks within the monitored section.</p>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card" data-animate="fade-up" data-delay="5">
+          <div class="card__icon">
+            <i data-lucide="trending-up" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Predictive Engine</h3>
+          <p class="card__desc">Historical pattern analysis using gradient-boosted models to predict failures before they occur.</p>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card" data-animate="fade-up" data-delay="6">
+          <div class="card__icon">
+            <i data-lucide="copy" width="24" height="24"></i>
+          </div>
+          <h3 class="card__title">Digital Twin</h3>
+          <p class="card__desc">Real-time simulation model mirrors the monitored network for scenario testing and optimization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specifications -->
+  <section class="section" data-animate="fade-up">
+    <div class="container container--narrow">
+      <div class="section-header section-header--center">
+        <div class="label">SPECIFICATIONS</div>
+        <h2 class="h2">Technical Details</h2>
+        <p>Engineered to meet stringent utility-grade performance, environmental, and interoperability standards.</p>
+      </div>
+      <div class="table-wrapper">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Specification Parameter</th>
+              <th>Value / Standard</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sampling Rate</td>
+              <td><span class="mono">10kHz&ndash;50kHz</span></td>
+            </tr>
+            <tr>
+              <td>Detection Latency</td>
+              <td><span class="mono">&lt; 50ms</span> (typical 35ms)</td>
+            </tr>
+            <tr>
+              <td>False Positive Rate</td>
+              <td><span class="mono">&lt; 0.01%</span></td>
+            </tr>
+            <tr>
+              <td>Communication</td>
+              <td><span class="mono">IEC 61850 GOOSE/MMS</span></td>
+            </tr>
+            <tr>
+              <td>Edge Processing</td>
+              <td>ARM Cortex-A72, 4GB RAM</td>
+            </tr>
+            <tr>
+              <td>Operating Temp</td>
+              <td><span class="mono">-40&deg;C to +70&deg;C</span></td>
+            </tr>
+            <tr>
+              <td>Power Supply</td>
+              <td>24V DC / PoE+</td>
+            </tr>
+            <tr>
+              <td>Ingress Protection</td>
+              <td><span class="badge badge--blue">IP67</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" data-animate="fade-up">
+    <div class="container">
+      <div class="card card--glass">
+        <h2 class="h2">Ready to upgrade your protection layer?</h2>
+        <p>Deploy intelligent monitoring across your grid with real-time detection, pinpoint location, and sub-second isolation.</p>
+        <div class="hero__actions">
+          <a href="monitoring.html" class="btn btn--primary btn--lg">See Smart LT in Action <i data-lucide="arrow-right" width="18" height="18"></i></a>
+          <a href="architecture.html" class="btn btn--secondary btn--lg">Learn About the Architecture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation for safer electrical infrastructure.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Company</div><ul class="footer__links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Compliance</a></div></div></div></footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js?v=2.9"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+

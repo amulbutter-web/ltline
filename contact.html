@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Team &mdash; Smart LT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">SL</div>SMART LT</a><ul class="nav__links"><li><a href="index.html">Home</a></li><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Monitoring</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a><button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button></div></nav>
+  <div class="mobile-menu"><button class="nav__close" aria-label="Close">&times;</button><a href="index.html">Home</a><a href="technology.html">Technology</a><a href="monitoring.html">Monitoring</a><a href="analytics.html">Analytics</a><a href="events.html">Events</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a></div>
+
+  <!-- HERO SECTION -->
+  <section class="hero" data-animate="fade-up">
+    <div class="hero__bg"></div>
+    <div class="container">
+      <div class="hero__content hero__content--center">
+        <div class="hero__label">PROJECT FEEDBACK &amp; TEAM CONTACT</div>
+        <h1 class="display hero__title">Get in Touch with the Hackathon Team.</h1>
+        <p class="hero__desc">Have feedback, technical questions, or demo inquiries about our Smart LT hackathon project? We'd love to connect with judges, mentors, and fellow builders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM & PROJECT LINKS -->
+  <section class="section" style="padding-top:0;" data-animate="fade-up">
+    <div class="container">
+      <div class="grid grid-2" style="grid-template-columns: 1.4fr 1fr; gap: 36px;">
+        
+        <!-- Left: Feedback Form -->
+        <div class="card" style="padding: 32px;">
+          <h3 class="h3" style="margin-bottom: 8px; color:var(--text-primary);">Send Feedback to the Team</h3>
+          <p class="small" style="color:var(--text-secondary); margin-bottom: 24px;">Share your thoughts on our prototype, report issues, or ask technical questions.</p>
+
+          <form id="contactForm">
+            <div class="grid grid-2" style="gap: 16px; margin-bottom: 16px;">
+              <div>
+                <label class="small" style="color:var(--text-secondary); display:block; margin-bottom:6px; font-weight:500;">NAME *</label>
+                <input type="text" required class="ai-input" style="width:100%;" placeholder="Your name" />
+              </div>
+              <div>
+                <label class="small" style="color:var(--text-secondary); display:block; margin-bottom:6px; font-weight:500;">EMAIL *</label>
+                <input type="email" required class="ai-input" style="width:100%;" placeholder="your.email@example.com" />
+              </div>
+            </div>
+
+            <div style="margin-bottom: 16px;">
+              <label class="small" style="color:var(--text-secondary); display:block; margin-bottom:6px; font-weight:500;">FEEDBACK CATEGORY</label>
+              <select class="ai-input" style="width:100%; cursor:pointer;">
+                <option value="feedback">General Project Feedback</option>
+                <option value="judging">Hackathon Judging / Review</option>
+                <option value="tech">Technical Architecture Question</option>
+                <option value="demo">Live Demo / Simulator Inquiry</option>
+              </select>
+            </div>
+
+            <div style="margin-bottom: 24px;">
+              <label class="small" style="color:var(--text-secondary); display:block; margin-bottom:6px; font-weight:500;">MESSAGE *</label>
+              <textarea required class="ai-input" style="width:100%; height:120px; resize:vertical;" placeholder="Write your message or feedback for the team..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--lg" style="width:100%; justify-content:center;">
+              <i data-lucide="send" width="18" height="18"></i>
+              Send Message to Team
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: Project Links & Quick Actions -->
+        <div class="flex flex-col gap-lg">
+          
+          <!-- Card 1: Live Demo -->
+          <div class="card" style="padding:24px;">
+            <div class="card__icon card__icon--green" style="margin-bottom:12px;">
+              <i data-lucide="play-circle" width="24" height="24"></i>
+            </div>
+            <h3 class="card__title">Test Live Simulation</h3>
+            <p class="card__desc" style="margin-bottom:16px;">Try the 6-step interactive line break simulator on our live monitoring dashboard.</p>
+            <a href="monitoring.html" class="btn btn--secondary btn--sm">
+              Open Monitoring Console <i data-lucide="arrow-right" width="14" height="14"></i>
+            </a>
+          </div>
+
+          <!-- Card 2: AI Assistant -->
+          <div class="card" style="padding:24px;">
+            <div class="card__icon card__icon--cyan" style="margin-bottom:12px;">
+              <i data-lucide="sparkles" width="24" height="24"></i>
+            </div>
+            <h3 class="card__title">AI Grid Diagnostics</h3>
+            <p class="card__desc" style="margin-bottom:16px;">Ask our built-in AI Assistant about real-time grid status, impedance analysis, or system logic.</p>
+            <button onclick="window.SmartLT.openAI();" data-open-ai="true" class="btn btn--secondary btn--sm">
+              Launch AI Assistant <i data-lucide="bot" width="14" height="14"></i>
+            </button>
+          </div>
+
+          <!-- Card 3: Hackathon Repo -->
+          <div class="card" style="padding:24px;">
+            <div class="card__icon card__icon--purple" style="margin-bottom:12px;">
+              <i data-lucide="code" width="24" height="24"></i>
+            </div>
+            <h3 class="card__title">Project Documentation</h3>
+            <p class="card__desc" style="margin-bottom:16px;">Review technical specifications, detection algorithms, and API endpoints.</p>
+            <a href="documentation.html" class="btn btn--secondary btn--sm">
+              View Documentation &rarr; <i data-lucide="file-text" width="14" height="14"></i>
+            </a>
+          </div>
+
+        </div>
+
+  </section>
+
+  <!-- SUCCESS OVERLAY MODAL -->
+  <div id="successOverlay" class="modal-overlay">
+    <div class="card card--glass" style="max-width:440px; text-align:center; padding:36px;">
+      <div class="card__icon card__icon--green" style="margin:0 auto 16px;">
+        <i data-lucide="check-circle" width="32" height="32"></i>
+      </div>
+      <h3 class="h3" style="color:var(--text-primary); margin-bottom:8px;">Feedback Submitted!</h3>
+      <p class="small" style="color:var(--text-secondary); margin-bottom:20px;">Thank you for reviewing our hackathon project! Our team appreciates your feedback.</p>
+      <button onclick="document.getElementById('successOverlay').classList.remove('active');" class="btn btn--primary" style="margin:0 auto;">Done</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation prototype built for the hackathon.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Project</div><ul class="footer__links"><li><a href="about.html">About MVP</a></li><li><a href="contact.html">Team Feedback</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Hackathon Demo</a></div></div></div></footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js?v=2.9"></script>
+</body>
+</html>
+
+
+
+

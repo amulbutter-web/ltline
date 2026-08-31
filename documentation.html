@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation &mdash; Smart LT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=2.9">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav class="nav"><div class="nav__inner"><a href="index.html" class="nav__logo"><div class="nav__logo-icon">SL</div>SMART LT</a><ul class="nav__links"><li><a href="index.html">Home</a></li><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Monitoring</a></li><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul><a href="monitoring.html" class="btn btn--primary btn--sm nav__cta">Open Monitoring</a><button class="nav__toggle" aria-label="Menu"><i data-lucide="menu" width="22" height="22"></i></button></div></nav>
+  <div class="mobile-menu"><button class="nav__close" aria-label="Close">&times;</button><a href="index.html">Home</a><a href="technology.html">Technology</a><a href="monitoring.html">Monitoring</a><a href="analytics.html">Analytics</a><a href="events.html">Events</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="monitoring.html" class="btn btn--primary" style="margin-top:16px">Open Monitoring</a></div>
+
+  <!-- TOP HERO AREA -->
+  <section style="padding-top: calc(var(--nav-height) + 40px); padding-bottom: 40px;" data-animate="fade-up">
+    <div class="container">
+      <div class="hero__label">DOCUMENTATION</div>
+      <h1 class="h1 hero__title" style="margin-bottom: 12px;">Complete Technical Reference.</h1>
+      <p class="body-lg" style="color: var(--text-secondary); max-width: 680px;">Everything you need to deploy, configure, and operate the Smart LT system.</p>
+    </div>
+  </section>
+
+  <!-- SIDEBAR + CONTENT LAYOUT -->
+  <section style="padding-bottom: 100px;">
+    <div class="container">
+      <div class="layout-sidebar">
+
+        <!-- STICKY SIDEBAR -->
+        <aside class="sidebar" data-animate="fade-up">
+          <!-- Group 1: Getting Started -->
+          <div class="sidebar__group">
+            <div class="sidebar__title">GETTING STARTED</div>
+            <a href="#product-overview" class="sidebar__link active">Product Overview</a>
+            <a href="#installation" class="sidebar__link">Installation</a>
+          </div>
+
+          <!-- Group 2: System -->
+          <div class="sidebar__group">
+            <div class="sidebar__title">SYSTEM</div>
+            <a href="#architecture" class="sidebar__link">Architecture</a>
+            <a href="#configuration" class="sidebar__link">Configuration</a>
+          </div>
+
+          <!-- Group 3: Operations -->
+          <div class="sidebar__group">
+            <div class="sidebar__title">OPERATIONS</div>
+            <a href="#monitoring" class="sidebar__link">Monitoring</a>
+            <a href="#troubleshooting" class="sidebar__link">Troubleshooting</a>
+            <a href="#maintenance" class="sidebar__link">Maintenance</a>
+          </div>
+
+          <!-- Group 4: Integration -->
+          <div class="sidebar__group">
+            <div class="sidebar__title">INTEGRATION</div>
+            <a href="#api-docs" class="sidebar__link">API Documentation</a>
+            <a href="#data-integration" class="sidebar__link">Data Integration</a>
+          </div>
+
+          <!-- Group 5: Resources -->
+          <div class="sidebar__group">
+            <div class="sidebar__title">RESOURCES</div>
+            <a href="#downloads" class="sidebar__link">Downloads</a>
+          </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="docs-content">
+
+          <!-- Section 1: Product Overview -->
+          <article id="product-overview" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Product Overview</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 24px;">Smart LT is an intelligent line break detection and automatic isolation system designed for electrical distribution networks.</p>
+            <div class="grid grid-2">
+              <div class="card">
+                <div class="card__icon card__icon--cyan">
+                  <i data-lucide="file-text" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">Technical Datasheet</h3>
+                <p class="card__desc" style="margin-bottom: 16px;">Detailed technical specifications, physical dimensions, and electrical ratings.</p>
+                <span class="tag">Available upon request</span>
+              </div>
+              <div class="card">
+                <div class="card__icon">
+                  <i data-lucide="book" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">Product Brief</h3>
+                <p class="card__desc" style="margin-bottom: 16px;">High-level summary of features, benefits, and target applications.</p>
+                <span class="tag">Available upon request</span>
+              </div>
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 2: Installation -->
+          <article id="installation" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Installation</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 24px;">This section covers installation for Smart LT hardware and software components.</p>
+            <div class="grid grid-2">
+              <div class="card">
+                <div class="card__icon card__icon--yellow">
+                  <i data-lucide="wrench" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">Installation Manual</h3>
+                <p class="card__desc" style="margin-bottom: 16px;">Step-by-step physical installation guide.</p>
+                <span class="tag">Contact engineering</span>
+              </div>
+              <div class="card">
+                <div class="card__icon card__icon--purple">
+                  <i data-lucide="clipboard" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">Site Requirements</h3>
+                <p class="card__desc" style="margin-bottom: 16px;">Environmental, network, and power prerequisites.</p>
+                <span class="tag">Available upon request</span>
+              </div>
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 3: Architecture -->
+          <article id="architecture" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">System Architecture</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">Detailed documentation of the Smart LT system architecture.</p>
+            <a href="architecture.html" class="btn btn--secondary">
+              View Interactive Architecture Diagram &rarr; &rarr;
+            </a>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 4: Configuration -->
+          <article id="configuration" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Configuration</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">System configuration parameters, network settings, and operational thresholds.</p>
+            <div class="callout">
+              Note: Configuration documentation is provided exclusively during system deployment to ensure security and proper calibration.
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 5: Monitoring -->
+          <article id="monitoring" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Monitoring Guide</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">Guide to using the Smart LT monitoring platform.</p>
+            <a href="monitoring.html" class="btn btn--secondary">
+              Open Live Monitoring &rarr; Dashboard &rarr;
+            </a>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 6: Troubleshooting -->
+          <article id="troubleshooting" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Troubleshooting</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">Common issues and resolution procedures.</p>
+            <div>
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button">
+                  <span>System shows DISCONNECTED status</span>
+                  <i data-lucide="chevron-down" class="icon" width="18" height="18"></i>
+                </button>
+                <div class="accordion-body">
+                  <div class="accordion-body__inner">
+                    Check network connectivity. Verify edge node power and communication LEDs. If cellular, confirm signal strength.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button">
+                  <span>Voltage readings appear incorrect</span>
+                  <i data-lucide="chevron-down" class="icon" width="18" height="18"></i>
+                </button>
+                <div class="accordion-body">
+                  <div class="accordion-body__inner">
+                    Verify sensor calibration and connections. Check PT ratio configuration. Environmental factors may affect accuracy.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <button class="accordion-trigger" type="button">
+                  <span>Events not appearing in timeline</span>
+                  <i data-lucide="chevron-down" class="icon" width="18" height="18"></i>
+                </button>
+                <div class="accordion-body">
+                  <div class="accordion-body__inner">
+                    Confirm communication link status. Check event filter settings. Review edge node logs locally.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 7: Maintenance -->
+          <article id="maintenance" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Maintenance</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">Scheduled maintenance procedures and recommended intervals.</p>
+            <div class="callout">
+              Note: Maintenance schedules are customized during deployment based on environmental conditions and grid criticality.
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 8: API Documentation -->
+          <article id="api-docs" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">API Documentation</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 20px;">Smart LT provides a RESTful API and WebSocket interface for integration.</p>
+            <div class="code-block" style="margin-bottom: 16px;">
+              <div class="code-block__header">
+                <span>API Endpoints</span>
+                <span class="mono" style="font-size: 0.75rem;">REST / WebSocket</span>
+              </div>
+              <pre><code>Base URL: https://api.smartlt.local/v1
+
+GET  /status          &mdash; System overall status
+GET  /sections         &mdash; All section data
+GET  /sections/:id     &mdash; Specific section detail
+GET  /events           &mdash; Event history (paginated)
+WS   /ws/live          &mdash; Real-time data stream</code></pre>
+            </div>
+            <p class="small" style="color: var(--text-tertiary);">Full OpenAPI/Swagger reference available upon system deployment.</p>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 9: Data Integration -->
+          <article id="data-integration" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Data Integration</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 24px;">Smart LT seamlessly connects with your existing grid management tools and operational platforms.</p>
+            <div class="grid grid-3">
+              <div class="card">
+                <div class="card__icon card__icon--cyan">
+                  <i data-lucide="refresh-cw" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">WebSocket</h3>
+                <p class="card__desc">Real-time data streaming for low-latency dashboards.</p>
+              </div>
+              <div class="card">
+                <div class="card__icon">
+                  <i data-lucide="globe" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">REST API</h3>
+                <p class="card__desc">Request/response data access for reporting tools.</p>
+              </div>
+              <div class="card">
+                <div class="card__icon card__icon--purple">
+                  <i data-lucide="radio" width="24" height="24"></i>
+                </div>
+                <h3 class="card__title">MQTT</h3>
+                <p class="card__desc">Lightweight IoT protocol integration for SCADA.</p>
+              </div>
+            </div>
+          </article>
+
+          <hr class="divider">
+
+          <!-- Section 10: Downloads -->
+          <article id="downloads" data-animate="fade-up">
+            <h2 class="h2" style="margin-bottom: 12px;">Downloads</h2>
+            <p class="body" style="color: var(--text-secondary); margin-bottom: 24px;">Access specifications, deployment manuals, and developer documentation.</p>
+            
+            <div class="flex flex-col gap-md">
+              <!-- Item 1: Datasheet -->
+              <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div class="flex items-center gap-md">
+                  <div class="card__icon card__icon--cyan" style="width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0;">
+                    <i data-lucide="file-text" width="20" height="20"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">Technical Datasheet</div>
+                    <div class="small mono" style="color: var(--text-tertiary); font-size: 0.8rem;">PDF &bull; 2.4 MB</div>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn--secondary btn--sm">Request Access</a>
+              </div>
+
+              <!-- Item 2: Installation Manual -->
+              <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div class="flex items-center gap-md">
+                  <div class="card__icon card__icon--yellow" style="width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0;">
+                    <i data-lucide="wrench" width="20" height="20"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">Installation Manual</div>
+                    <div class="small mono" style="color: var(--text-tertiary); font-size: 0.8rem;">PDF &bull; 8.1 MB</div>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn--secondary btn--sm">Contact engineering</a>
+              </div>
+
+              <!-- Item 3: User Manual -->
+              <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div class="flex items-center gap-md">
+                  <div class="card__icon" style="width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0;">
+                    <i data-lucide="book" width="20" height="20"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">User Manual</div>
+                    <div class="small mono" style="color: var(--text-tertiary); font-size: 0.8rem;">PDF &bull; 12.5 MB</div>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn--secondary btn--sm">Request Access</a>
+              </div>
+
+              <!-- Item 4: API Reference -->
+              <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div class="flex items-center gap-md">
+                  <div class="card__icon card__icon--green" style="width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0;">
+                    <i data-lucide="code" width="20" height="20"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">API Reference</div>
+                    <div class="small mono" style="color: var(--text-tertiary); font-size: 0.8rem;">PDF &bull; 1.8 MB</div>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn--secondary btn--sm">Request Access</a>
+              </div>
+
+              <!-- Item 5: Integration Guide -->
+              <div class="card" style="padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+                <div class="flex items-center gap-md">
+                  <div class="card__icon card__icon--purple" style="width: 40px; height: 40px; margin-bottom: 0; flex-shrink: 0;">
+                    <i data-lucide="refresh-cw" width="20" height="20"></i>
+                  </div>
+                  <div>
+                    <div style="font-weight: 600; color: var(--text-primary);">Integration Guide</div>
+                    <div class="small mono" style="color: var(--text-tertiary); font-size: 0.8rem;">PDF &bull; 4.2 MB</div>
+                  </div>
+                </div>
+                <a href="contact.html" class="btn btn--secondary btn--sm">Request Access</a>
+              </div>
+            </div>
+          </article>
+
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer"><div class="container"><div class="footer__grid"><div class="footer__brand"><div class="footer__brand-name"><div class="nav__logo-icon" style="width:24px;height:24px;font-size:0.55rem">SL</div>SMART LT</div><p class="footer__brand-desc">Intelligent line break detection and automatic isolation for safer electrical infrastructure.</p></div><div><div class="footer__col-title">Platform</div><ul class="footer__links"><li><a href="technology.html">Technology</a></li><li><a href="monitoring.html">Live Monitoring</a></li></ul></div><div><div class="footer__col-title">Resources</div><ul class="footer__links"><li><a href="analytics.html">Analytics</a></li><li><a href="events.html">Events</a></li></ul></div><div><div class="footer__col-title">Company</div><ul class="footer__links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div></div><div class="footer__bottom"><span>&copy; 2026 Smart LT Hackathon Project. All rights reserved.</span><div class="footer__bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Compliance</a></div></div></div></footer>
+
+  <!-- Lucide Icons & Shared Script -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="js/main.js?v=2.9"></script>
+  <script>
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
+
+
+
+
